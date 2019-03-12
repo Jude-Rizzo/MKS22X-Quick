@@ -12,7 +12,8 @@ public class Quick{
     swap(data, start, n);
     start++;
     while(end > start){
-      if(data[start] > data[n]){
+      //after start is in the beginning
+      if(data[start] >= data[n]){
         swap(data, start, end);
         end--;
       }else{
