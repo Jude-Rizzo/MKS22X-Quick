@@ -64,9 +64,6 @@ public class Driver {
           int index = Quick.partition(test, start, end);
           if (!test(test, index,start,end)) {
               System.out.print("fAILURE ON LENGTH " + i);
-              for(int o = 0; o < test.length; o++){
-                System.out.print(test[o]);
-              }
               System.exit(1);
           }
           }
