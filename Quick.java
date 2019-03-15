@@ -11,12 +11,23 @@ public class Quick{
     int n = (int)Math.random()*(end - start)+ start;
     swap(data, start, n);
     int pivot = start;
+    int dupcounter = 0;
     //make an index at the beginning for the pivot point
     start++;
     while(end > start){
+      if(data[start] > data[pivot]){
+        if(data[end] < data[pivot]){
+          swap(data, end, start);
+          start++;
+        }
+        end--;
+      }
       //after start is in the beginning
-      if(data[start] >= data[pivot]){
-        //if start is bigger than pivot
+      /*if(data[start] >= data[pivot]){
+        if(data[start] == data[pivot]){
+          dupcounter ++;
+        }
+        //if start is bigger than or equal to pivot
         if(data[end] < data[pivot]){
           //if end is lower sqap start and end
           swap(data, start, end);
@@ -28,9 +39,11 @@ public class Quick{
         start++;
       }
     }
+    swap(data, start, pivot);
+    return pivot;
     //return value is off
-    return end - 1;
-  }
+
+  }*/
 
 
   public static void quickSort(int[] data, int low, int hi){
