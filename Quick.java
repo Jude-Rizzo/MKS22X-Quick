@@ -22,6 +22,21 @@ public class Quick{
         }
         end--;
       }
+
+      if (data[start] <= data[pivot]) {
+        swap(data,pivot,start);
+        pivot = start;
+      }
+      else {
+        swap(data,pivot,start-1);
+        pivot = start-1;
+      }
+      //return the index of lo val
+      //System.out.println(Arrays.toString(data));
+      return pivot;
+    }
+    return pivot;
+  }
       //after start is in the beginning
       /*if(data[start] >= data[pivot]){
         if(data[start] == data[pivot]){
