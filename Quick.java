@@ -36,27 +36,27 @@ public class Quick{
        swap(data,pivot,start-1);
        pivot = start-1;
       }
-  
+
       return pivot;
     }
 
-public static int quickselect(int[] data, int k){
+public static int quickselect(int[] data, int n){
   int lo = 0;
   int hi = data.length - 1;
 
   int pivot = partition(data,lo,hi);
-  while(k != pivot) {
+  while(n != pivot) {
 
-    if (k < pivot){
+    if (n < pivot){
       hi = pivot-1;
     }
 
-    if (k > pivot){
+    if (n > pivot){
       lo = pivot+1;
     }
     pivot = partition(data,lo,hi);
   }
-  return data[k];
+  return data[n];
 }
 
 
