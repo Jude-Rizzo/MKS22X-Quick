@@ -1,100 +1,39 @@
-import java.util.Arrays;
-import java.util.Random;
-import java.lang.Math;
+import java.util.*;
 
-public class Driver {
-    public static boolean test(int[] data, int k, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (i < k) {
-                if (data[i] > data[k]) {
-                    return false;
-                }
-            } else if (i > k) {
-                if (data[i] < data[k]) {
-                    return false;
-                }
-            }
-        }
-        return true;
+public class Driver{
+
+public static void main(String[]args){
+System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+int[]MAX_LIST = {1000000000,500,10};
+for(int MAX : MAX_LIST){
+  for(int size = 31250; size < 2000001; size*=2){
+    long qtime=0;
+    long btime=0;
+    //average of 5 sorts.
+    for(int trial = 0 ; trial <=5; trial++){
+      int []data1 = new int[size];
+      int []data2 = new int[size];
+      for(int i = 0; i < data1.length; i++){
+        data1[i] = (int)(Math.random()*MAX);
+        data2[i] = data1[i];
+      }
+      long t1,t2;
+      t1 = System.currentTimeMillis();
+      Quick.quicksort(data2);
+      t2 = System.currentTimeMillis();
+      qtime += t2 - t1;
+      t1 = System.currentTimeMillis();
+      Arrays.sort(data1);
+      t2 = System.currentTimeMillis();
+      btime+= t2 - t1;
+      if(!Arrays.equals(data1,data2)){
+        System.out.println("FAIL TO SORT!");
+        System.exit(0);
+      }
     }
-    public static void main(String[] args) {
-        int[] data1 = {10, 80, 30, 90, 40, 50, 70};
-        //System.out.println(Arrays.toString(data1));
-        int index1a = Quick.partition(data1, 0, 6);
-        System.out.println(index1a);
-        System.out.println("1a: " + test(data1, index1a,0,6));
-        //System.out.println(Arrays.toString(data1) + " "+index1a+"\n");
-        //System.out.println(Arrays.toString(data1));
-        int index1b = Quick.partition(data1, 2, 5);
-        System.out.println("1b: " + test(data1, index1b,2,5));
-        //System.out.println(Arrays.toString(data1) + " "+index1b+"\n");
-
-        int[] data2 = {6, 3, 7, -1, 7, 4, 10, -21};
-        //System.out.println(Arrays.toString(data2));
-        int index2a = Quick.partition(data2, 2, 7);
-        System.out.println("2a: " + test(data2, index2a,2,7));
-        //System.out.println(Arrays.toString(data2) + " " + index2a+"\n");
-        //System.out.println(Arrays.toString(data2));
-        int index2b = Quick.partition(data2, 1, 4);
-        System.out.println("2b: " + test(data2, index2b,1,4));
-        //System.out.println(Arrays.toString(data2) + "\n");
-
-        int[] data3 = {78};
-        //System.out.println(Arrays.toString(data3));
-        int index3 = Quick.partition(data3, 0, 0);
-        System.out.println("3: " + test(data3, index3,0,0));
-        //System.out.println(Arrays.toString(data3) + "\n");
-
-        int[] data4 = {3, 1};
-        int index4 = Quick.partition(data4, 0, 1);
-        //System.out.println(Arrays.toString(data4));
-        System.out.println("4: " + test(data4, index4,0,1));
-        //System.out.println(Arrays.toString(data4) + "\n");
-
-        for(int i = 1; i < 1000; i++){
-          Random gen = new Random();
-          int[] test = new int[i];
-          for(int j = 0; j < test.length; j++){
-            test[j] = gen.nextInt();
-          }
-          int start = Math.abs(gen.nextInt()) % test.length;
-          int end = start + Math.abs(gen.nextInt()) % (test.length - start);
-          //System.out.println(start + ", " + end);
-          //System.out.println(Arrays.toString(test));
-          int index = Quick.partition(test, start, end);
-          if (!test(test, index,start,end)) {
-              System.out.print("fAILURE ON LENGTH " + i);
-              System.exit(1);
-          }
-          }
-
-
-
-
-
-
-        for (int i = 0; i < 100; i++) {
-            try {
-                Random gen = new Random();
-                int[] test = new int[i * 1000 + 1];
-                for (int j = 0; j < test.length; j++) {
-                    test[j] = gen.nextInt();
-                }
-                int start = Math.abs(gen.nextInt()) % test.length;
-                int end = start + Math.abs(gen.nextInt()) % (test.length - start);
-                //System.out.println(start + ", " + end);
-                //System.out.println(Arrays.toString(test));
-                int index = Quick.partition(test, start, end);
-                if (!test(test, index,start,end)) {
-                    System.out.print("fAILURE ON LENGTH " + (i * 1000 + 1));
-                    System.exit(1);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.print("FAILURE ON LENGTH " + (i * 1000 + 1));
-                System.exit(1);
-            }
-        }
-        System.out.println("R: SUCCESS"); //R for random
-    }
+    System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+  }
+  System.out.println();
+}
+}
 }

@@ -14,60 +14,53 @@ public class Quick{
     int dupcounter = 0;
     //make an index at the beginning for the pivot point
     start++;
-    while(end > start){
+    while(end != start){
       if(data[start] > data[pivot]){
         if(data[end] < data[pivot]){
           swap(data, end, start);
           start++;
         }
         end--;
-      }
-
-      if (data[start] <= data[pivot]) {
-        swap(data,pivot,start);
-        pivot = start;
-      }
-      else {
-        swap(data,pivot,start-1);
-        pivot = start-1;
-      }
-      //return the index of lo val
-      //System.out.println(Arrays.toString(data));
-      return pivot;
-    }
-    return pivot;
-  }
-      //after start is in the beginning
-      /*if(data[start] >= data[pivot]){
-        if(data[start] == data[pivot]){
-          dupcounter ++;
-        }
-        //if start is bigger than or equal to pivot
-        if(data[end] < data[pivot]){
-          //if end is lower sqap start and end
-          swap(data, start, end);
-          //then move start up (end moves at the end anyway)
-          start++;
-        }
-      end--;
-      }else{
+      } else {
         start++;
-      }
+
     }
-    swap(data, start, pivot);
-    return pivot;
-    //return value is off
 
-  }*/
+  }
+  return start;
+}
 
 
-  public static void quickSort(int[] data, int low, int hi){
+public static int quickselect(int[] data, int k){
+  int lo = 0;
+  int hi = data.length - 1;
+  
+  int pivot = partition(data,lo,hi);
+  while(k != pivot) {
+    //if k is less than pivot look from beginning to the pivot
+    if (k < pivot){
+      hi = pivot-1;
+    }
+    //else start at the pivot and go to the hi
+    if (k > pivot){
+      lo = pivot+1;
+    }
+    pivot = partition(data,lo,hi);
+    //System.out.println("Index: " + idx + " k: " + k + " lo: " + lo + " hi:" + hi);
+    //System.out.println("toString: " + Arrays.toString(data));
+  }
+  return data[k];
+}
+
+
+
+  public static void quicksort(int[] data, int low, int hi){
     if(low >= hi){
       return;
     }
     int p = partition(data, low, hi);
-    quickSort(data, low, p -1);
-    quickSort(data, p + 1, hi);
+    quicksort(data, low, p -1);
+    quicksort(data, p + 1, hi);
   }
 
 
