@@ -75,7 +75,21 @@ public static int[] partitionDutch(int[] data, int lo, int hi){
         lt++;
         i++;
         pivot++;
+      } else if (data[i] == data[pivot]) {
+        //if equal just increment i by 1
+        i++;
       }
+      else {
+        //swap value at higher side with i
+        swap(data,gt,i);
+        gt--;
+      }
+    }
+    return new int[] {lt,gt};
+  }
+  public static void quicksort(int[] data){
+    quicksortD(data,0,data.length - 1);
+  }
 
 
 
@@ -93,9 +107,14 @@ public static int[] partitionDutch(int[] data, int lo, int hi){
     quicksort(data, p + 1, hi);
   }
 
-  public static void quicksort(int[] data){
-    quicksort(data,0,data.length - 1);
-  }
+  public static void quicksortD(int[] data, int lo, int hi){
+      if (lo >= hi) {
+        return;
+      }
+      int[] pivot = partitionDutch(data, lo, hi);
+      quicksortD(data, lo, pivot[0]-1);
+      quicksortD(data, pivot[1]+1, hi);
+    }
 
 
 
