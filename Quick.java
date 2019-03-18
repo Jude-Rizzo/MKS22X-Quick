@@ -40,6 +40,8 @@ public class Quick{
       return pivot;
     }
 
+
+
 public static int quickselect(int[] data, int n){
   int lo = 0;
   int hi = data.length - 1;
@@ -58,6 +60,27 @@ public static int quickselect(int[] data, int n){
   }
   return data[n];
 }
+
+
+///DUTCH
+public static int[] partitionDutch(int[] data, int lo, int hi){
+    int lt = lo;
+    int gt = hi;
+    int i = lt + 1;
+    int pivot = lo;
+    while (i <= gt) {
+      if (data[i] < data[pivot]) {
+        //swap value at lower side with i
+        swap(data,lt,i);
+        lt++;
+        i++;
+        pivot++;
+      }
+
+
+
+
+
 
 
 
