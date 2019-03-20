@@ -64,36 +64,30 @@ public static int quickselect(int[] data, int n){
 
 ///DUTCH
 public static int[] partitionDutch(int[] data, int lo, int hi){
-    int lt = lo;
-    int gt = hi;
-    int i = lt + 1;
+    int l = lo;
+    int g = hi;
+    int i = l + 1;
     int pivot = lo;
-    while (i <= gt) {
+    while (i <= g) {
       if (data[i] < data[pivot]) {
-        //swap value at lower side with i
-        swap(data,lt,i);
-        lt++;
+        //basically the same algo as origionally, except now we jiust inceremnt i when equal
+        swap(data,l,i);
+        l++;
         i++;
         pivot++;
       } else if (data[i] == data[pivot]) {
-        //if equal just increment i by 1
         i++;
       }
       else {
-        //swap value at higher side with i
-        swap(data,gt,i);
-        gt--;
+        swap(data,g,i);
+        g--;
       }
     }
-    return new int[] {lt,gt};
+    return new int[] {l,g};
   }
   public static void quicksort(int[] data){
     quicksortD(data,0,data.length - 1);
   }
-
-
-
-
 
 
 
@@ -111,10 +105,30 @@ public static int[] partitionDutch(int[] data, int lo, int hi){
       if (lo >= hi) {
         return;
       }
+
+      if (lo > hi - 20){
+        insertionSort(data, lo, hi);
+      } else {
       int[] pivot = partitionDutch(data, lo, hi);
       quicksortD(data, lo, pivot[0]-1);
       quicksortD(data, pivot[1]+1, hi);
     }
+    }
+
+
+    public static void insertionSort(int[] ary, int lo, int hi){
+        for(int i = lo + 1; i <= hi; i++){
+          int orig = ary[i];
+          int cur = i;
+          while(cur != 0 && ary[cur-1] > orig){
+            ary[cur] = ary[cur - 1]; //shift
+            cur --;
+          }
+          ary[cur] = orig;
+        }
+        //System.out.prinln(ary);
+      }
+
 
 
 
